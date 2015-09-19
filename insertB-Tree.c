@@ -34,6 +34,32 @@ void Print(struct node * x)
 }
 
 
+struct node * Search(struct node * x, int element)
+{
+  int i = 0;
+  struct node * temp = NULL;
+
+  while(i < x->num && element > x->key[i])
+  {
+    i += 1;
+  }
+
+  if(i <= x->num && x->key[i] == element)
+  {
+    temp = x;
+    return temp;
+  }
+
+  else if(x->leaf == 1)
+  {
+    return temp;
+  }
+  else
+  {
+    Search(x->child[i], element);
+  }
+}
+
 void splitChild(struct node * x, int i)
 {
   int j, t = 3;
@@ -151,6 +177,7 @@ int main()
 {
   int i, choice = 24;
   int a[24] = {10,1,5,7,9,2,3,8,6,21,65,0,10,7,1,0,3,8,7,1,9,15,12,21};
+  struct node * temp;
 
   while(choice != 0)
   {
@@ -159,5 +186,11 @@ int main()
   }
   printf("Inserted Elements are:\n");
   Print(root);
+  printf("Searching\n");
+  temp = Search(root, 65);
+  if(temp != NULL)
+  {
+    printf("Found\n");
+  }
   return 0;
 }
